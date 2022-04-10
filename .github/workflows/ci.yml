@@ -31,5 +31,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Output .env
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL" >> .env
+          echo "APP_ID=$APP_ID" >> .env
+          echo "APP_SECRET=$APP_SECRET" >> .env
+
       - name: Run tests
         run: npm test
