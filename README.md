@@ -13,3 +13,4 @@
 ## Develop Guide
 
 - `pnpm install`
+- `gh secret set -f .env`
