@@ -1,13 +1,13 @@
 import {Controller, Get, Query} from '@nestjs/common'
-import {AuthService} from '../auth/auth.service'
+import {LoginService} from './login.service'
 
 @Controller('api/login')
 export class LoginController {
-  constructor(private authService: AuthService) {}
+  constructor(private loginService: LoginService) {}
 
   @Get()
   root(@Query() query: {code: string}) {
     const {code} = query
-    return this.authService.login(code)
+    return this.loginService.login(code)
   }
 }
