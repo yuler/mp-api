@@ -1,22 +1,24 @@
 import {Module} from '@nestjs/common'
-import {ConfigModule} from '@nestjs/config'
+import {HttpModule} from '@nestjs/axios'
+import {AuthModule} from './auth/auth.module'
+import {LoginController} from './login/login.controller'
 import {ApiController} from './api.controller'
 import {ApiService} from './api.service'
-import {PrismaService} from '../prisma.service'
-import {HttpModule} from '@nestjs/axios'
+import {MiniApiService} from './mini-api.service'
+import {LoginService} from './login/login.service'
 
 @Module({
   imports: [
-    ConfigModule,
-    // TODO: ConfigModule
     HttpModule.registerAsync({
       useFactory: () => ({
+        baseURL: 'https://api.weixin.qq.com',
         timeout: 5000,
         maxRedirects: 5,
       }),
     }),
+    AuthModule,
   ],
-  controllers: [ApiController],
-  providers: [ApiService, PrismaService],
+  controllers: [ApiController, LoginController],
+  providers: [ApiService, MiniApiService, LoginService],
 })
 export class ApiModule {}
